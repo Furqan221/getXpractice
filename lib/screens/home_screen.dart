@@ -55,15 +55,31 @@ class HomeScreen extends StatelessWidget {
               )),
           ElevatedButton(
               onPressed: () {
-                Get.toNamed('/ScreenOne',arguments: [
-                  'Furqan', 
-                  '22',  
+                Get.toNamed('/ScreenOne', arguments: [
+                  'Furqan',
+                  '22',
                 ]);
               },
               child: Text(
                 'Go to My Profile Screen',
                 style: TextStyle(fontSize: 20),
               )),
+          ElevatedButton(
+              onPressed: () {
+                Get.toNamed('/ChangeLanguage');
+              },
+              child: Text(
+                'Language change',
+                style: TextStyle(fontSize: 20),
+              )),
+          ElevatedButton(
+              onPressed: () {
+                Get.toNamed('/STMExamples');
+              },
+              child: Text(
+                'State Management',
+                style: TextStyle(fontSize: 20),
+              ))
         ],
       ),
     );

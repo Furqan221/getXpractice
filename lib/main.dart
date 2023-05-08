@@ -1,4 +1,5 @@
 import 'package:getx/export_all.dart';
+import 'package:getx/languages.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,13 +15,21 @@ class MyApp extends StatelessWidget {
       // theme: ThemeData(
       //   primarySwatch: Colors.deepOrange,
       // ),
-      theme: lightTheme,
+      theme: ThemeData(),
       debugShowCheckedModeBanner: false,
-      // home: HomeScreen()
+      fallbackLocale: Locale('en', 'US'),
+      translations: Languages(),
+      locale: Locale('en', 'US'),
       initialRoute: '/HomeScreen',
       getPages: [
         GetPage(name: '/HomeScreen', page: () => HomeScreen()),
         GetPage(name: '/ScreenOne', page: () => ScreenOne()),
+        GetPage(name: '/ScreenOne', page: () => ScreenOne()),
+        GetPage(name: '/ChangeLanguage', page: () => ChangeLanguage()),
+        GetPage(name: '/STMExamples', page: () => STMExamples()),
+        GetPage(name: '/CounterExample', page: () => CounterExample()),
+        GetPage(name: '/STMExample02', page: () => STMExample02()),
+        GetPage(name: '/STMExample03', page: () => STMExample03()),
       ],
     );
   }
