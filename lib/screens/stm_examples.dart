@@ -36,6 +36,14 @@ class STMExamples extends StatelessWidget {
               child: Text(
                 'STM Example 03',
                 style: TextStyle(fontSize: 20),
+              )),
+          ElevatedButton(
+              onPressed: () {
+                Get.toNamed('/STMExample04');
+              },
+              child: Text(
+                'STM Example 04',
+                style: TextStyle(fontSize: 20),
               ))
         ],
       ),

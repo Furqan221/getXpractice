@@ -1,6 +1,6 @@
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:getx/controllers/example_two_controller.dart';
+import 'package:getx/controllers/example02_controller.dart';
 import 'package:getx/export_all.dart';
 
 class STMExample02 extends StatelessWidget {

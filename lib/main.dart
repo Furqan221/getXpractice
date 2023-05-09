@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/CounterExample', page: () => CounterExample()),
         GetPage(name: '/STMExample02', page: () => STMExample02()),
         GetPage(name: '/STMExample03', page: () => STMExample03()),
+        GetPage(name: '/STMExample04', page: () => STMExample04()),
       ],
     );
   }
