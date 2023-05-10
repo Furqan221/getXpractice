@@ -9,6 +9,7 @@ class HomeScreen extends StatelessWidget {
       // co
       appBar: AppBar(
         title: Text('Get X Tutorials'),
+        centerTitle: true,
       ),
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: 50, vertical: 50),
@@ -78,6 +79,14 @@ class HomeScreen extends StatelessWidget {
               },
               child: Text(
                 'State Management',
+                style: TextStyle(fontSize: 20),
+              )),
+          ElevatedButton(
+              onPressed: () {
+                Get.toNamed('/ImagePickerExample');
+              },
+              child: Text(
+                'ImagePickerExample',
                 style: TextStyle(fontSize: 20),
               ))
         ],

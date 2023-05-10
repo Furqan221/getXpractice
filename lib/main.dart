@@ -15,12 +15,12 @@ class MyApp extends StatelessWidget {
       // theme: ThemeData(
       //   primarySwatch: Colors.deepOrange,
       // ),
-      theme: ThemeData(),
+      theme: ThemeData(primarySwatch: Colors.deepPurple),
       debugShowCheckedModeBanner: false,
       fallbackLocale: Locale('en', 'US'),
       translations: Languages(),
       locale: Locale('en', 'US'),
-      initialRoute: '/HomeScreen',
+      initialRoute: '/LoginScreen',
       getPages: [
         GetPage(name: '/HomeScreen', page: () => HomeScreen()),
         GetPage(name: '/ScreenOne', page: () => ScreenOne()),
@@ -31,6 +31,8 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/STMExample02', page: () => STMExample02()),
         GetPage(name: '/STMExample03', page: () => STMExample03()),
         GetPage(name: '/STMExample04', page: () => STMExample04()),
+        GetPage(name: '/ImagePickerExample', page: () => ImagePickerExample()),
+        GetPage(name: '/LoginScreen', page: () => LoginScreen()),
       ],
     );
   }
