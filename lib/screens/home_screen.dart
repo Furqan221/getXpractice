@@ -88,7 +88,15 @@ class HomeScreen extends StatelessWidget {
               child: Text(
                 'ImagePickerExample',
                 style: TextStyle(fontSize: 20),
-              ))
+              )),
+          ElevatedButton(
+              onPressed: () {
+                Get.toNamed('/PayPalScreen');
+              },
+              child: Text(
+                'Paypal Example',
+                style: TextStyle(fontSize: 20),
+              )),
         ],
       ),
     );

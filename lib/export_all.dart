@@ -1,6 +1,7 @@
 export 'package:flutter/material.dart';
 export 'package:get/get.dart';
 export 'package:image_picker/image_picker.dart';
+export 'package:flutter_paypal/flutter_paypal.dart';
 
 //screen
 export 'package:getx/screens/loginScreen.dart';
@@ -9,7 +10,7 @@ export 'package:getx/screens/Screen_one.dart';
 export 'package:getx/screens/language_change.dart';
 export 'package:getx/screens/counter_example.dart';
 export 'package:getx/screens/example_image_picker.dart';
-
+export 'package:getx/screens/paypalscreen.dart';
 export 'package:getx/screens/stm_examples.dart';
 export 'package:getx/screens/stm_examples02.dart';
 export 'package:getx/screens/stm_example03.dart';

@@ -6,4 +6,7 @@ class ExampleTwoController extends GetxController {
   setOpacity(value) {
     opacity.value = value;
   }
+
+
+  
 }

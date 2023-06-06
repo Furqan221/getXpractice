@@ -19,7 +19,11 @@ class STMExample02 extends StatelessWidget {
                 child: Center(
                     child: Text(
                   controller.opacity.toString()[2],
-                  style: TextStyle(fontSize: 40),
+                  style: TextStyle(
+                      fontSize: 40,
+                      color: controller.opacity.value < .55
+                          ? Colors.black
+                          : Colors.white.withOpacity(controller.opacity.value)),
                 )),
                 margin: EdgeInsets.all(30),
                 height: 100,

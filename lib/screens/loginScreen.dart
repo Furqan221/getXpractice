@@ -52,11 +52,27 @@ class _LoginScreenState extends State<LoginScreen> {
           SizedBox(
             height: 50,
           ),
-          Text(
-            'Email is : eve.holt@reqres.in',
-            style: TextStyle(color: Colors.black),
+          Row(
+            children: [
+              Text(
+                'Email is :',
+                style: TextStyle(color: Colors.black),
+              ),
+              SelectableText(
+                'eve.holt@reqres.in',
+                style: TextStyle(color: Colors.black),
+              )
+            ],
           ),
-          Text('Password is : pistol', style: TextStyle(color: Colors.black)),
+          Row(
+            children: [
+              Text('Password is : ', style: TextStyle(color: Colors.black)),
+              SelectableText(
+                'pistol',
+                style: TextStyle(color: Colors.black),
+              )
+            ],
+          ),
           SizedBox(
             height: 100,
           ),

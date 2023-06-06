@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       fallbackLocale: Locale('en', 'US'),
       translations: Languages(),
       locale: Locale('en', 'US'),
-      initialRoute: '/LoginScreen',
+      initialRoute: '/HomeScreen',
       getPages: [
         GetPage(name: '/HomeScreen', page: () => HomeScreen()),
         GetPage(name: '/ScreenOne', page: () => ScreenOne()),
@@ -33,6 +33,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/STMExample04', page: () => STMExample04()),
         GetPage(name: '/ImagePickerExample', page: () => ImagePickerExample()),
         GetPage(name: '/LoginScreen', page: () => LoginScreen()),
+        GetPage(name: '/PayPalScreen', page: () => PaymentScreen()),
       ],
     );
   }
