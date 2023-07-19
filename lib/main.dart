@@ -34,6 +34,9 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/ImagePickerExample', page: () => ImagePickerExample()),
         GetPage(name: '/LoginScreen', page: () => LoginScreen()),
         GetPage(name: '/PayPalScreen', page: () => PaymentScreen()),
+        GetPage(name: '/ContainerCustom', page: () => ContainerCustom()),
+        GetPage(name: '/CartPage', page: () => CartPage()),
+        GetPage(name: '/StopwatchScreen', page: () => MyWidget()),
       ],
     );
   }

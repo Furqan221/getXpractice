@@ -1,6 +1,5 @@
 export 'package:flutter/material.dart';
 export 'package:get/get.dart';
-export 'package:image_picker/image_picker.dart';
 export 'package:flutter_paypal/flutter_paypal.dart';
 
 //screen
@@ -15,10 +14,11 @@ export 'package:getx/screens/stm_examples.dart';
 export 'package:getx/screens/stm_examples02.dart';
 export 'package:getx/screens/stm_example03.dart';
 export 'package:getx/screens/stm_example04.dart';
+export 'package:getx/screens/container _example.dart';
+export 'package:getx/screens/cart_example.dart';
+export 'package:getx/screens/stop_watch_screen.dart';
 
-
-
-// controllers 
+// controllers
 
 export 'package:getx/controllers/counter_controller.dart';
 export 'package:getx/controllers/example02_controller.dart';
@@ -26,6 +26,5 @@ export 'package:getx/controllers/example03_controller.dart';
 export 'package:getx/controllers/example04_controller.dart';
 export 'package:getx/controllers/image_picker_controller.dart';
 export 'package:getx/controllers/login_controller.dart';
-
-
-
+export 'package:getx/controllers/cart_controller.dart';
+export 'package:getx/controllers/stop_watch_controller.dart';

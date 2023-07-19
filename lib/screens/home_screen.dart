@@ -97,6 +97,30 @@ class HomeScreen extends StatelessWidget {
                 'Paypal Example',
                 style: TextStyle(fontSize: 20),
               )),
+          ElevatedButton(
+              onPressed: () {
+                Get.toNamed('/ContainerCustom');
+              },
+              child: Text(
+                'ContainerCustom',
+                style: TextStyle(fontSize: 20),
+              )),
+          ElevatedButton(
+              onPressed: () {
+                Get.toNamed('/CartPage');
+              },
+              child: Text(
+                'Cart Example',
+                style: TextStyle(fontSize: 20),
+              )),
+          ElevatedButton(
+              onPressed: () {
+                Get.toNamed('/StopwatchScreen');
+              },
+              child: Text(
+                'Stop Watch',
+                style: TextStyle(fontSize: 20),
+              )),
         ],
       ),
     );

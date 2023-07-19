@@ -1,4 +1,5 @@
 import 'package:getx/export_all.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ImagePickerController extends GetxController {
   RxString pickedImage = "".obs;
