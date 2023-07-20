@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:getx/export_all.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyWidget extends StatefulWidget {
   const MyWidget({super.key});
@@ -15,13 +17,14 @@ class _MyWidgetState extends State<MyWidget> {
   void initState() {
     isTimerSatrted.value = true;
     buttonStart = true;
-    startTimer();
+    // startTimer();
+    getCountHistory();
     super.initState();
   }
 
   int reduceSecondsBy = 1;
   Timer? countdownTimer;
-  Duration myDuration = Duration(days: 5);
+  Duration myDuration = Duration();
   bool buttonStart = false;
   bool buttonPause = false;
   bool buttonReset = false;
@@ -34,15 +37,17 @@ class _MyWidgetState extends State<MyWidget> {
   }
 
   // Step 4
-  void stopTimer() {
-    setState(() => countdownTimer!.cancel());
-  }
+  // void stopTimer() {
+  //   BgServices.setStopTime(reduceSecondsBy);
+  //   setState(() => countdownTimer!.cancel());
+  // }
 
   // Step 5
   void resetTimer() {
-    stopTimer();
+    // stopTimer();
+    BgServices.setReset();
     setState(() {
-      myDuration = Duration(days: 5);
+      myDuration = Duration();
       reduceSecondsBy = 1;
     });
   }
@@ -51,14 +56,28 @@ class _MyWidgetState extends State<MyWidget> {
   void setCountDown() {
     setState(() {
       final seconds = reduceSecondsBy;
-
-      if (seconds < 0) {
-        countdownTimer!.cancel();
-      } else {
-        myDuration = Duration(seconds: seconds);
-        reduceSecondsBy++;
+      if (seconds == 1) {
+        BgServices.setStartTime();
       }
+      // if (seconds < 0) {
+      //   countdownTimer!.cancel();
+      // }
+      // else {
+      // log(seconds.toString());
+      myDuration = Duration(seconds: seconds);
+      reduceSecondsBy++;
+      // log(reduceSecondsBy.toString());
+      // }
     });
+  }
+
+  void getCountHistory() async {
+    final SharedPreferences sp = await SharedPreferences.getInstance();
+    if (sp.getString("TimerState").toString() == "Started") {
+      final int lastCount = await BgServices().timeDifference();
+      reduceSecondsBy = lastCount + 2;
+    }
+    startTimer();
   }
 
   @override
@@ -133,91 +152,60 @@ class _MyWidgetState extends State<MyWidget> {
                     ),
                   ),
                   // Step 10
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     if (countdownTimer == null || countdownTimer!.isActive) {
+                  //       setState(() {
+                  //         buttonStart = false;
+                  //         buttonPause = true;
+                  //         buttonReset = false;
+                  //         isTimerSatrted.value = false;
+                  //       });
+                  //       stopTimer();
+                  //     }
+                  //   },
+                  //   child: Container(
+                  //     height: 45,
+                  //     width: 125,
+                  //     decoration: BoxDecoration(
+                  //         color: Color(0xff55DC7F),
+                  //         borderRadius: BorderRadius.circular(6),
+                  //         border: Border.all(
+                  //             color: buttonPause == true
+                  //                 ? Colors.white
+                  //                 : Colors.transparent,
+                  //             width: 4)),
+                  //     child: Padding(
+                  //       padding: const EdgeInsets.only(left: 25.0),
+                  //       child: Row(
+                  //         children: [
+                  //           Icon(
+                  //             Icons.pause,
+                  //             color: Colors.white,
+                  //           ),
+                  //           Text(
+                  //             'Pause',
+                  //             style: TextStyle(
+                  //               fontSize: 14,
+                  //               color: Colors.white,
+                  //             ),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                  // // Step 11
                   GestureDetector(
                     onTap: () {
-                      if (countdownTimer == null || countdownTimer!.isActive) {
-                        setState(() {
-                          buttonStart = false;
-                          buttonPause = true;
-                          buttonReset = false;
-                          isTimerSatrted.value = false;
-                        });
-                        stopTimer();
-                      }
-                    },
-                    child: Container(
-                      height: 45,
-                      width: 125,
-                      decoration: BoxDecoration(
-                          color: Color(0xff55DC7F),
-                          borderRadius: BorderRadius.circular(6),
-                          border: Border.all(
-                              color: buttonPause == true
-                                  ? Colors.white
-                                  : Colors.transparent,
-                              width: 4)),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 25.0),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.pause,
-                              color: Colors.white,
-                            ),
-                            Text(
-                              'Pause',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  // Step 11
-                  GestureDetector(
-                    onTap: () {
-                      Get.defaultDialog(
-                        backgroundColor: Colors.amber,
-                        barrierDismissible: false,
-                        title: 'Alert\n\nAre you sure you want to reset?',
-                        titleStyle: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.white),
-                        titlePadding: EdgeInsets.only(top: 20),
-                        middleText:
-                            '\nNote: If you reset all of your workout tracking will be lost! ',
-                        middleTextStyle: TextStyle(
-                            fontWeight: FontWeight.w200,
-                            fontSize: 12,
-                            color: Colors.grey.shade100),
-                        cancel: ElevatedButton(
-                            onPressed: () => Get.back(),
-                            child: Text(
-                              "No",
-                              style: TextStyle(fontWeight: FontWeight.w600),
-                            ),
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.amber)),
-                        confirm: ElevatedButton(
-                            onPressed: () {
-                              setState(() {
-                                buttonStart = false;
-                                buttonPause = false;
-                                buttonReset = true;
-                                isTimerSatrted.value = false;
-                              });
-                              resetTimer();
-                              Get.back();
-                            },
-                            child: Text(
-                              "Yes",
-                              style: TextStyle(fontWeight: FontWeight.w600),
-                            ),
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.red)),
-                      );
+                      setState(() {
+                        buttonStart = false;
+                        buttonPause = false;
+                        buttonReset = true;
+                        isTimerSatrted.value = false;
+                      });
+                      resetTimer();
+                      // Get.back();
                     },
                     child: Container(
                       height: 45,
@@ -241,8 +229,13 @@ class _MyWidgetState extends State<MyWidget> {
                       ),
                     ),
                   ),
+                  ElevatedButton(
+                      onPressed: () {
+                        BgServices().timeDifference();
+                      },
+                      child: Text("See the Difference"))
                 ],
-              )
+              ),
             ],
           ),
         ),
@@ -251,23 +244,91 @@ class _MyWidgetState extends State<MyWidget> {
   }
 }
 
+class BgServices {
+  static Future<void> setStartTime() async {
+    final SharedPreferences sp = await SharedPreferences.getInstance();
 
+    sp.setString("StartTime", DateTime.now().toString());
+    sp.setString("TimerState", "Started");
+    log(sp.getString("StartTime").toString());
+    log(sp.getString("TimerState").toString());
+  }
 
+  static Future<void> setReset() async {
+    final SharedPreferences sp = await SharedPreferences.getInstance();
 
+    sp.setString("StartTime", '');
+    sp.setString("StopTime", '');
+    sp.setString("TimerState", "Stopped");
+  }
 
+  // static Future<void> setStopTime(int _) async {
+  //   final SharedPreferences sp = await SharedPreferences.getInstance();
 
+  //   sp.setString("StopTime", DateTime.now().toString());
+  //   sp.setInt("LastStopTime", _);
+  //   sp.setString("TimerState", "Stopped");
+  //   log(sp.getString("StopTime").toString());
+  //   log(sp.getString("TimerState").toString());
+  // }
 
+  Future<int> timeDifference({bool forRestart = true}) async {
+    final SharedPreferences sp = await SharedPreferences.getInstance();
 
+    String currentTime = DateTime.now().toString();
+    String startedTime = sp.getString("StartTime").toString();
+    // String stopTime = sp.getString("StopTime").toString();
 
+    DateTime firstTimestamp = DateTime.parse(startedTime);
+    DateTime secondTimestamp = DateTime.parse(currentTime);
 
+    Duration difference = secondTimestamp.difference(firstTimestamp);
+    int differenceInSeconds = difference.inSeconds;
 
+    print("The difference in seconds is: $differenceInSeconds");
+    return differenceInSeconds.toInt();
 
+    // // DateTime dateTime1 = DateTime.parse(startedTime);
+    // // DateTime dateTime2 = DateTime.parse(stopTime);
 
+    // // Duration difference = dateTime2.difference(dateTime1);
 
+    // // print('Time difference: ${difference.toString()}');
+    // // Duration customDuration = Duration(
+    // //   days: difference.inDays,
+    // //   hours: difference.inHours % 24,
+    // //   minutes: difference.inMinutes % 60,
+    // //   milliseconds: difference.inMilliseconds % 1000,
+    // //   microseconds: difference.inMicroseconds % 1000,
+    // // );
 
+    // // print('Custom Duration: ${customDuration.toString()}');
 
+    // // return difference.toString();
+    // DateTime dateTime2 = DateTime.parse(currentTime);
+    // DateTime dateTime1 = DateTime.parse(startedTime);
 
+    // Duration difference = dateTime2.difference(dateTime1);
 
+    // String formattedDifference = formatDuration(difference);
+
+    // print('Formatted Time Difference: $difference');
+  }
+
+//   String formatDuration(Duration duration) {
+//     int days = duration.inDays;
+//     int hours = duration.inHours % 24;
+//     int minutes = duration.inMinutes % 60;
+//     int seconds = duration.inSeconds % 60;
+//     int microseconds = duration.inMicroseconds % 1000000;
+
+//     return '${days.toString().padLeft(2, '0')}-'
+//         '${hours.toString().padLeft(2, '0')}-'
+//         '${minutes.toString().padLeft(2, '0')}-'
+//         '${seconds.toString().padLeft(2, '0')}-'
+//         '${microseconds.toString().padLeft(5, '0')}';
+//   }
+}
 
 
 
